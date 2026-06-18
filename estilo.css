@@ -1,170 +1,152 @@
 /* ==========================================================================
-   CONFIGURAÇÕES GERAIS E RESETS
+   1. CONFIGURAÇÕES GERAIS E RESET
    ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1512; /* Marrom bem escuro */
-    color: #f5eedc; /* Bege claro para boa leitura */
+    background-color: #f4f7f4;
+    color: #333;
     line-height: 1.6;
-    padding-bottom: 40px;
 }
 
 /* ==========================================================================
-   CABECALHO
+   2. CABEÇALHO (HEADER)
    ========================================================================== */
 .cabecalho {
-    background-color: #2b201a; /* Marrom tronco */
-    padding: 20px;
-    text-align: center;
-    border-bottom: 3px solid #8b5a2b; /* Linha divisória em marrom claro */
-    margin-bottom: 40px;
+    background-color: #2e5a1c;
+    color: #ffffff;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .cabecalho h1 {
-    font-size: 2.5rem;
-    color: #ffb703; /* Amarelo banana */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
+    font-size: 1.8rem;
 }
 
 .cabecalho nav a {
-    color: #d4a373;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.2s;
+    transition: color 0.3s ease;
 }
 
 .cabecalho nav a:hover {
-    color: #ffb703;
+    color: #a3e284;
 }
 
 /* ==========================================================================
-   CONTEÚDO PRINCIPAL E GRID
+   3. CONTEÚDO PRINCIPAL (MAIN & GRID)
    ========================================================================== */
 main {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 2rem 1rem;
 }
 
 main h2 {
     text-align: center;
-    font-size: 1.5rem;
-    color: #a3b18a; /* Verde folha suave */
-    margin-bottom: 40px;
-    font-weight: 400;
+    color: #2e5a1c;
+    margin-bottom: 2.5rem;
+    font-size: 1.6rem;
 }
 
-/* Cria a malha de cartões responsiva */
+/* Container dos Cartões */
 .conteiner-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    gap: 2rem;
+    padding: 1rem;
 }
 
 /* ==========================================================================
-   EFEITO FLIP 3D DOS CARTÕES
+   4. EFEITO FLIP CARD (EFEITO 3D AO PASSAR O MOUSE)
    ========================================================================== */
 .cartao {
     background-color: transparent;
-    height: 420px; /* Altura fixa para garantir o alinhamento */
-    perspective: 1000px; /* Define a profundidade do efeito 3D */
+    height: 420px;
+    perspective: 1000px; /* Cria o efeito de profundidade 3D */
 }
 
-/* Elemento interno que vai girar de fato */
+/* Este elemento segura as duas faces do cartão */
 .cartao-interno {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.8s;
     transform-style: preserve-3d;
-    cursor: pointer;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 12px;
 }
 
-/* Ativa a rotação ao passar o mouse */
+/* Aciona a rotação quando passa o mouse */
 .cartao:hover .cartao-interno {
     transform: rotateY(180deg);
 }
 
-/* Configurações comuns para a Frente e o Verso do cartão */
+/* Posicionamento comum para a frente e o verso */
 .cartao-frente, .cartao-verso {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Oculta a parte de trás enquanto vira */
-    backface-visibility: hidden;
-    border-radius: 15px;
+    -webkit-backface-visibility: hidden; /* Suporte para Safari */
+    backface-visibility: hidden;         /* Esconde o verso enquanto gira */
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    border: 2px solid #3d2c22;
+    background-color: #ffffff;
 }
 
-/* Estilização da Frente */
-.cartao-frente {
-    background-color: #241b14;
-    color: #f5eedc;
-}
-
-/* Estilização do Verso (Iniciado já rotacionado) */
+/* Estilização específica do Verso */
 .cartao-verso {
-    background-color: #3d2c22;
-    color: #ffffff;
-    transform: rotateY(180deg);
+    transform: rotateY(180deg); /* Já começa invertido */
+    background-color: #f9fbf9;
+    border: 2px solid #2e5a1c;
 }
 
 /* ==========================================================================
-   COMPONENTES INTERNOS DOS CARTÕES
+   5. ELEMENTOS INTERNOS DO CARTÃO
    ========================================================================== */
 .cartao-imagem {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
 }
 
-/* Etiquetas de Status (MITO / VERDADE) */
-.status {
-    align-self: center;
-    padding: 6px 16px;
-    font-weight: bold;
-    font-size: 0.9rem;
-    border-radius: 20px;
-    margin-top: -15px; /* Sobrepõe levemente a imagem */
-    z-index: 1;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-}
-
-.mito {
-    background-color: #e63946; /* Vermelho alerta */
-    color: #ffffff;
-}
-
-.verdade {
-    background-color: #2a9d8f; /* Verde selva/oceano */
-    color: #ffffff;
-}
-
-/* Textos descritivos */
+/* Texto descritivo */
 .cartao p {
-    padding: 20px;
+    padding: 1.5rem;
     font-size: 1rem;
+    color: #444;
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.cartao-verso p {
-    color: #e9c46a; /* Texto do verso em tom amarelado quente */
+/* Badges / Etiquetas (MITO e VERDADE) */
+.status {
+    font-weight: bold;
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.mito {
+    background-color: #d9534f; /* Vermelho */
+}
+
+.verdade {
+    background-color: #5cb85c; /* Verde */
 }

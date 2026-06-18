@@ -1,107 +1,166 @@
 /* ==========================================================================
-   1. CONFIGURAÇÕES GERAIS
+   1. RESET E CORES VARIÁVEIS (ESTILO DARK NEON)
    ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif; /* Fonte padrão e limpa */
+    font-family: 'Courier New', Courier, monospace; /* Fonte estilo código/tecnológica */
 }
 
 body {
-    background-color: #f5f5f5;
-    color: #333;
-    padding: 20px;
+    background-color: #121214;
+    color: #e1e1e6;
+    line-height: 1.4;
 }
 
 /* ==========================================================================
-   2. CABEÇALHO
+   2. CABEÇALHO FUTURISTA
    ========================================================================== */
 .cabecalho {
-    background-color: #333;
-    color: white;
-    padding: 15px 20px;
+    background-color: #19191d;
+    border-bottom: 2px solid #00ff66; /* Linha neon */
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+}
+
+.cabecalho h1 {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: #00ff66;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
 }
 
 .cabecalho nav a {
-    color: white;
+    color: #a8a8b3;
     text-decoration: none;
     font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+}
+
+.cabecalho nav a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px #ffffff;
 }
 
 /* ==========================================================================
-   3. ALINHAMENTO DOS CARTÕES (GRID)
+   3. GRID E TÍTULO PRINCIPAL
    ========================================================================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
 main h2 {
     text-align: center;
-    margin-bottom: 30px;
+    color: #ffffff;
+    margin-bottom: 3rem;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .conteiner-grid {
     display: grid;
-    /* Cria colunas automáticas com tamanho mínimo de 280px */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 2.5rem;
 }
 
 /* ==========================================================================
-   4. EFEITO SIMPLES DE EXIBIR O VERSO
+   4. NOVO EFEITO FLIP CARD (ROTACIONA NA DIAGONAL)
    ========================================================================== */
 .cartao {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    height: 380px;
+    background-color: transparent;
+    height: 450px;
+    perspective: 1200px;
 }
 
-/* Esconde o verso por padrão */
-.cartao-verso {
-    display: none;
+.cartao-interno {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    border: 1px solid #29292e;
 }
 
-/* Quando passa o mouse: esconde a frente e mostra o verso */
-.cartao:hover .cartao-frente {
-    display: none;
+/* Efeito de giro diagonal ao passar o mouse */
+.cartao:hover .cartao-interno {
+    transform: rotateY(180deg) rotateX(10deg);
+    border-color: #00ff66;
 }
 
-.cartao:hover .cartao-verso {
+.cartao-frente, .cartao-verso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    background-color: #202024;
+}
+
+.cartao-verso {
+    transform: rotateY(180deg);
+    background-color: #121214;
+    border: 1px solid #00ff66;
 }
 
 /* ==========================================================================
-   5. IMAGENS, TEXTOS E CORES
+   5. DETALHES INTERNOS DOS CARTÕES
    ========================================================================== */
 .cartao-imagem {
     width: 100%;
     height: 180px;
-    object-fit: cover; /* Corta a imagem para caber direitinho sem distorcer */
+    object-fit: cover;
+    filter: grayscale(40%); /* Imagens levemente dessaturadas combinando com o tema */
+    transition: filter 0.3s;
+}
+
+.cartao:hover .cartao-imagem {
+    filter: grayscale(0%);
 }
 
 .cartao p {
-    padding: 15px;
-    font-size: 14px;
-    line-height: 1.5;
+    padding: 2rem 1.5rem;
+    font-size: 0.95rem;
+    color: #a8a8b3;
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
-/* Estilo das etiquetas de MITO e VERDADE */
+/* Status com estilo de "Aviso do Sistema" */
 .status {
-    text-align: center;
     font-weight: bold;
-    padding: 8px;
-    color: white;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .mito {
-    background-color: #e74c3c; /* Vermelho */
+    color: #ff3333;
+    background-color: rgba(255, 51, 51, 0.1);
+}
+
+.mito::before {
+    content: "[✖] ";
 }
 
 .verdade {
-    background-color: #2ecc71; /* Verde */
+    color: #00ff66;
+    background-color: rgba(0, 255, 102, 0.1);
+}
+
+.verdade::before {
+    content: "[✔] ";
 }
